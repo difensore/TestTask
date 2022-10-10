@@ -1,0 +1,13 @@
+﻿@model List<Folder>
+
+<div>
+    <h3>"Folder"-@Model[0].Name.Replace('%',' ')</h3>    
+    @for(var i=1;i<Model.Count;i++)
+    {
+        <div>
+            <a asp-controller="Home" asp-action="Index" asp-route-path="@Model[i].Name">@Model[i].Name.Replace('%',' ')</a>
+        </div>
+
+    }
+
+</div>
