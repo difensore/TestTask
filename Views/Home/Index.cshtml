@@ -1,11 +1,12 @@
-﻿@model List<Folder>
+﻿@using TestTask.Interfaces
+@model IFoldersManager
 
 <div>
-    <h3>"Folder"-@Model[0].Name.Replace('%',' ')</h3>    
-    @for(var i=1;i<Model.Count;i++)
+    <h3>"Folder"-@Model.Folders[0].Name.Replace('%',' ')</h3>    
+    @for(var i=1;i<Model.Folders.Count;i++)
     {
         <div>
-            <a asp-controller="Home" asp-action="Index" asp-route-path="@Model[i].Name">@Model[i].Name.Replace('%',' ')</a>
+            <a asp-controller="Home" asp-action="Index" asp-route-path="@(Model.currentPath+"/"+Model.Folders[i].Name)">@Model.Folders[i].Name.Replace('%',' ')</a>
         </div>
 
     }

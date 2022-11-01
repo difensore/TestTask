@@ -12,6 +12,7 @@ builder.Services.AddDbContext<FolderContext>(options =>
                 options.UseSqlServer(connection));
 builder.Services.AddScoped<IDbFolder, DbFolder>();
 builder.Services.AddScoped<IDataProvider, DataProvider>();
+builder.Services.AddTransient<IFoldersManager, FoldersManger>();
 
 var app = builder.Build();
 

@@ -9,10 +9,12 @@ namespace TestTask.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private IDataProvider _provider;
-        public HomeController(ILogger<HomeController> logger, IDataProvider dp)
+        private IFoldersManager _foldersManager;
+        public HomeController(ILogger<HomeController> logger, IDataProvider dp, IFoldersManager foldersManager)
         {
             _logger = logger;
             _provider = dp;
+            _foldersManager = foldersManager;
         }
         [HttpGet("{**path}")]
         public IActionResult Index(string path)
@@ -20,9 +22,10 @@ namespace TestTask.Controllers
             if (path==null)
             {
                 return RedirectToAction( "Index","Home", new {path= "Creating%Digital%Images" });                
-            }
-            List<Folder> folder = _provider.GetFolderAsync(path).Result;
-            return View(folder);
+            }            
+            _foldersManager.currentPath = path;
+            _foldersManager.Folders = _provider.GetFolderAsync(path).Result;
+            return View(_foldersManager);
         }       
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
